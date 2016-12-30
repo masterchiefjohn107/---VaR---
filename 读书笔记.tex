@@ -135,6 +135,22 @@ $$\sigma_p=\sqrt{w^T\sum w}$$
 
 \qd{Delta正态法}是针对非线性类金融资产（如期权）来设计的。
 
+假设投资组合的价值函数取一阶近似（即Delta）且市场因子服从多元正态分布。在此假设基础上，投资组合的回报服从一元正态分布。用$V(t,x_{n \times 1})$表示投资组合的价值函数，其中$t$表示时间，$x_{n \times 1}$表示n维市场因子向量。$V(t,x)$对每一自变量取一阶导数有：$\theta_i=\frac {\partial V(t,x)} {\partial t}$。根据VaR的定义，VaR可转化为投资组合价值变化$\Delta V$的分布的一个分位数。由泰勒展开式有：$$V(t,x)=V(t_0,x_0)+\theta _t(t-t_0)+\delta ^T(x-x_0)+o(2)=V(t_0,x_0)+\theta _t \Delta t+\delta ^T \delta \Delta x+o(2)$$其中，$V(t_0,x_0)$为投资组合在时刻$t_0$的盯市价值；当假设$o(0)=0$时有：$$\Delta V(\Delta t, \Delta x)=V(t,x)-V(t_0,x_0)=\theta _t \Delta t+\delta ^T \delta \Delta x$$
+设$z_{\alpha}$为置信水平$\alpha$内标准正态分布的分位数，则$$z_{\alpha}=\frac {VaR+\theta_t \Delta t} {\sqrt{\delta^T \sum \delta}} \Rightarrow VaR=\theta_t+z_{\alpha}\sqrt{\delta^T \sum \delta}$$
+此时$\delta$是一个n维列向量，即n个期权类非线性资产头寸相对于各自标的资产价格变化的Delta弹性，$\sum$是一个$n \times n$协方差矩阵。为了计算方便，通常不考虑$\theta_t$的影响
+
+\qd{Delta-Gamma正态法}假定因子的变化$\Delta x$服从联合正态分布，并假定$(\Delta x)^2$也是服从正态分布的，且与$\Delta x$相互独立，这样可以将组合价值的变化简写为两个市场因子的表达形式：
+$$\Delta V \approx \delta^T \Delta x+(\lambda /2)(\Delta x)^2= \delta^T \Delta x+(\lambda /2)\Delta S$$
+$\Delta S$是一个与$\Delta x$独立的正态变量。由于$\Delta x$与$\Delta S$均服从正态分布，所以组合的价值变化$\Delta V$也服从正态分布，则组合的VaR可由Delta正态模型给出：
+$$VaR
+=z_{\alpha} \sigma_p V
+=z_{\alpha} V \sqrt{\delta^2 \sigma^2+(\gamma /2)^2 \sigma_s^2}
+=z_{\alpha} V \sqrt{\delta^2 \sigma^2+(1/2)\gamma^2 \sigma^4}
+=z_{\alpha} \sigma V \sqrt{\delta^2 +(1/2)\gamma^2 \sigma^2}$$
+Delta-Gamma正态法本质上是将$(\Delta x)^2$视为一个独立的风险因子，以简化计算。
+
+期权类非线性资产的回报分布往往是有偏和厚尾的。为了修正这一问题，可以采用分析法和半参数法。
+
 \subsection{分析法（参数法）}
 
 \subsection{厚尾模型Heavy Tail Model（半参数法）}
